@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commandes EPS — GILAC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #fafaf9;
+  --surface:      #ffffff;
+  --ink:          #0f1722;
+  --ink-90:       #1c2530;
+  --ink-60:       #4b5563;
+  --ink-30:       #9aa3b0;
+  --muted:        #6b7280;
+  --line-soft:    #e7e8eb;
+  --line-strong:  #cbd0d8;
+  --line-faint:   #f1f2f4;
+  --accent:       #047857;
+  --accent-light: #6ee7b7;
+  --accent-bg:    #ecfdf5;
+  --positive:        #047857;
+  --positive-light:  #86efac;
+  --positive-bg:     #ecfdf5;
+  --danger:          #b91c1c;
+  --danger-light:    #fca5a5;
+  --neutral-bar:     #64748b;
+  --radius:    6px;
+  --radius-lg: 10px;
+  --gap-section: 32px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.num,
+table tbody td,
+table thead th,
+.kpi__value,
+.kpi__sub,
+.tag,
+.badge {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============ HEADER ============ */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 250, 249, 0.92);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.app-header__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__mark {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+}
+
+.brand__mark svg { display: block; }
+
+.brand__name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand__sep {
+  width: 1px;
+  height: 14px;
+  background: var(--line-strong);
+}
+
+.brand__product {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.subnav {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.subnav a {
+  font-size: 13px;
+  color: var(--ink-60);
+  padding: 16px 0;
+  position: relative;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.subnav a:hover { color: var(--ink); }
+
+.subnav a.is-active {
+  color: var(--ink);
+}
+
+.subnav a.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-60);
+}
+
+.user-chip__avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* ============ MAIN CONTAINER ============ */
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ============ PAGE HEADER ============ */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.page-header__title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.page-header__subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.page-header__actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ============ SEGMENTED CONTROL ============ */
+.seg-control {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 2px;
+  gap: 0;
+}
+
+.seg-control button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-60);
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.seg-control button:hover { color: var(--ink); }
+
+.seg-control button.is-active {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+/* ============ BUTTON GHOST ============ */
+.btn-ghost {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-60);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--ink-60);
+}
+
+/* ============ KPI STRIP ============ */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--gap-section);
+}
+
+.kpi {
+  background: var(--surface);
+  padding: 18px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kpi__label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kpi__value {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.kpi__value--accent { color: var(--accent); }
+.kpi__value--danger { color: var(--danger); }
+
+.kpi__sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ============ FILTERS BAR ============ */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.filter-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-60);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.pill:hover {
+  color: var(--ink);
+  border-color: var(--ink-60);
+}
+
+.pill.is-active {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: var(--accent);
+}
+
+.pill__count {
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+/* ============ BLOCK / CARD ============ */
+.block {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.block__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px 28px 14px;
+  gap: 16px;
+}
+
+.block__title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.block__subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.block__caption {
+  padding: 12px 28px 18px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--line-faint);
+}
+
+/* ============ TABLE ============ */
+.table-wrap { overflow-x: auto; }
+
+table.eps {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+table.eps thead th {
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-strong);
+  padding: 11px 14px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+table.eps thead th.num,
+table.eps tbody td.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table.eps tbody td {
+  border-bottom: 1px solid var(--line-faint);
+  padding: 13px 14px;
+  vertical-align: middle;
+  color: var(--ink);
+}
+
+table.eps tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+table.eps tbody tr:hover { background: var(--accent-bg); }
+
+.cell-strong { font-weight: 600; }
+
+.cell-muted { color: var(--ink-60); }
+
+.cmd-no {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.silver-no {
+  font-size: 12px;
+  color: var(--ink-60);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.silver-no--missing {
+  color: var(--ink-30);
+  font-style: italic;
+}
+
+/* badges status (tableau) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-60);
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+.badge--devis      { color: var(--ink-60); background: var(--surface); }
+.badge--silver     { color: var(--ink); background: var(--bg); border-color: var(--line-strong); }
+.badge--production { color: var(--accent); background: var(--accent-bg); border-color: var(--accent-light); }
+.badge--expedition { color: var(--ink); background: var(--bg); border-color: var(--ink-60); }
+.badge--livree     { color: var(--positive); background: var(--positive-bg); border-color: var(--positive-light); }
+.badge--retard     { color: var(--danger); background: #fef2f2; border-color: var(--danger-light); }
+
+.site {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-60);
+}
+
+.site__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--ink-60);
+  display: inline-block;
+}
+
+.site--alencon    .site__dot { background: var(--accent); }
+.site--polysemble .site__dot { background: var(--neutral-bar); }
+.site--cabka      .site__dot { background: var(--ink-60); }
+.site--miam       .site__dot { background: var(--accent-light); }
+
+.actions-prog {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.actions-prog__bar {
+  width: 64px;
+  height: 4px;
+  background: var(--line-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.actions-prog__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.actions-prog__txt {
+  color: var(--ink-60);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+}
+
+.delta-pos { color: var(--positive); font-weight: 600; }
+.delta-neg { color: var(--danger); font-weight: 600; }
+
+.row-total {
+  background: var(--bg);
+  font-weight: 600;
+  border-top: 1px solid var(--line-strong);
+}
+
+/* ============ KANBAN ============ */
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.kcol {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.kcol__header {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--line-faint);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.kcol__title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kcol__count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.kcol__body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.kcard {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 12px 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.kcard:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent-light);
+}
+
+.kcard__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.kcard__cmd {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.kcard__qty {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.kcard__client {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+
+.kcard__article {
+  font-size: 12px;
+  color: var(--ink-60);
+  margin-bottom: 10px;
+}
+
+.kcard__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.kcard__date {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.kcard__date.is-late { color: var(--danger); font-weight: 600; }
+
+.kcard__commercial {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.kcard__avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 9.5px;
+}
+
+/* ============ VIEW TOGGLE ============ */
+.view { display: none; }
+.view.is-active { display: block; }
+
+/* ============ FOOTER ============ */
+.note {
+  margin-top: 24px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* ============ DENSITY ============ */
+body[data-density="compact"] { font-size: 12px; }
+body[data-density="compact"] .container { padding: 22px 24px 48px; }
+body[data-density="compact"] table.eps tbody td { padding: 10px 12px; }
+body[data-density="compact"] .kpi { padding: 14px 18px 12px; }
+
+body[data-density="airy"] { font-size: 14px; }
+body[data-density="airy"] .container { padding: 48px 24px 72px; }
+body[data-density="airy"] table.eps tbody td { padding: 16px 16px; }
+body[data-density="airy"] .kpi { padding: 24px 24px 20px; }
+
+/* ============ PRINT ============ */
+@media print {
+  .app-header, .subnav, .page-header__actions, .seg-control, .btn-ghost, .filters { display: none !important; }
+  .app-header { position: static; background: var(--surface); }
+  body { background: var(--surface); }
+  .block, .kpi-strip { break-inside: avoid; }
+}
+</style>
+</head>
+<body data-density="comfortable">
+
+<header class="app-header">
+  <div class="app-header__inner">
+    <div class="brand">
+      <div class="brand__mark" aria-label="Gilac">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 1.5L16.2 5.5V12.5L9 16.5L1.8 12.5V5.5L9 1.5Z" stroke="#0f1722" stroke-width="1.4" fill="none"/>
+          <path d="M9 6V12M6 9H12" stroke="#047857" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <span class="brand__name">GILAC</span>
+      <span class="brand__sep"></span>
+      <span class="brand__product">ADV EPS</span>
+    </div>
+
+    <nav class="subnav">
+      <a href="#" class="is-active">Commandes</a>
+      <a href="#">Planning prod.</a>
+      <a href="#">Clients</a>
+      <a href="#">Reporting</a>
+    </nav>
+
+    <div class="user-chip">
+      <span>Martin Bouthiaux</span>
+      <span class="user-chip__avatar">MB</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="page-header">
+    <div>
+      <h1 class="page-header__title">Commandes EPS</h1>
+      <p class="page-header__subtitle">Pilotage centralisé des commandes — toutes sources, tous sites de production</p>
+    </div>
+    <div class="page-header__actions">
+      <button class="btn-ghost">Export</button>
+      <div class="seg-control" role="tablist" aria-label="Type de vue">
+        <button type="button" class="is-active" data-view="table" role="tab">Tableau</button>
+        <button type="button" data-view="kanban" role="tab">Kanban</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI STRIP -->
+  <section class="kpi-strip" aria-label="Indicateurs clés">
+    <div class="kpi">
+      <div class="kpi__label">Commandes en cours</div>
+      <div class="kpi__value num">14</div>
+      <div class="kpi__sub">+2 vs semaine dernière</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">À expédier · 7 j.</div>
+      <div class="kpi__value num">6</div>
+      <div class="kpi__sub">2 en retard de production</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Production active</div>
+      <div class="kpi__value num">4 sites</div>
+      <div class="kpi__sub">Alençon · Polysemble · Cabka · MIAM</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Volume engagé</div>
+      <div class="kpi__value num">312 480</div>
+      <div class="kpi__sub">unités sur 14 commandes</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">CA en cours</div>
+      <div class="kpi__value num kpi__value--accent">2 184 600 €</div>
+      <div class="kpi__sub">Hors taxes, FAB usine</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Retards</div>
+      <div class="kpi__value num kpi__value--danger">3</div>
+      <div class="kpi__sub">à arbitrer cette semaine</div>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <span class="filter-label">Filtrer</span>
+    <button class="pill is-active">Tous <span class="pill__count">14</span></button>
+    <button class="pill">Alvéoles <span class="pill__count">7</span></button>
+    <button class="pill">Intercalaires <span class="pill__count">4</span></button>
+    <button class="pill">Palettes <span class="pill__count">3</span></button>
+    <span style="flex:1"></span>
+    <button class="pill">À surveiller <span class="pill__count">3</span></button>
+  </div>
+
+  <!-- TABLE VIEW -->
+  <section class="view is-active" data-view="table">
+    <div class="block">
+      <div class="block__header">
+        <div>
+          <h2 class="block__title">Toutes les commandes</h2>
+          <p class="block__subtitle">14 commandes actives — tri par date de livraison croissante</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="eps">
+          <thead>
+            <tr>
+              <th>N° CMD</th>
+              <th>Client</th>
+              <th>Article</th>
+              <th>Réf. Gilac</th>
+              <th class="num">Qté</th>
+              <th>Site</th>
+              <th>N° CDE Silver</th>
+              <th>Statut</th>
+              <th>Livraison</th>
+              <th>Actions</th>
+              <th>Commercial</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-eps">
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="block__caption">
+        Données rafraîchies il y a 4 min · Sources : Notion · Silver ERP · Outlook · Saisie manuelle
+      </div>
+    </div>
+  </section>
+
+  <!-- KANBAN VIEW -->
+  <section class="view" data-view="kanban">
+    <div id="kanban-root" class="kanban"></div>
+    <p class="note">Glisser-déposer entre colonnes à venir. Action en lecture seule sur ce prototype.</p>
+  </section>
+
+</main>
+
+<script>
+/* ===========================================================
+   DONNÉES MOCKÉES — 14 commandes EPS
+=========================================================== */
+const STATUSES = [
+  { key: 'devis',      label: 'Devis signé',      badge: 'badge--devis' },
+  { key: 'silver',     label: 'Saisie Silver',    badge: 'badge--silver' },
+  { key: 'production', label: 'En production',    badge: 'badge--production' },
+  { key: 'expedition', label: 'Expédition',       badge: 'badge--expedition' },
+  { key: 'livree',     label: 'Livrée',           badge: 'badge--livree' },
+];
+
+const SITES = {
+  alencon:    { label: 'Alençon',    cls: 'site--alencon' },
+  polysemble: { label: 'Polysemble', cls: 'site--polysemble' },
+  cabka:      { label: 'Cabka',      cls: 'site--cabka' },
+  miam:       { label: 'MIAM',       cls: 'site--miam' },
+};
+
+const COMMANDES = [
+  { cmd: 'EPS-2614', client: 'Avibresse',           article: 'Alvéole 30 œufs',    ref: 'ALV-30-BLC',   qte: 24000,  site: 'alencon',    silver: 'CDE-S-44218',   status: 'production', livraison: '2026-05-22', actionsDone: 4, actionsTotal: 5, com: 'Léa Garnier' },
+  { cmd: 'EPS-2615', client: 'Cocorette',           article: 'Intercalaire 6×10',  ref: 'INT-6X10-VRT', qte: 18500,  site: 'polysemble', silver: 'CDE-S-44219',   status: 'silver',     livraison: '2026-05-24', actionsDone: 2, actionsTotal: 5, com: 'Antoine Pelletier' },
+  { cmd: 'EPS-2616', client: 'Loué',                article: 'Palette 1200×800',   ref: 'PAL-12-NOIR',  qte: 480,    site: 'cabka',      silver: 'CDE-S-44220',   status: 'production', livraison: '2026-05-25', actionsDone: 3, actionsTotal: 6, com: 'Léa Garnier' },
+  { cmd: 'EPS-2617', client: 'Matines',             article: 'Alvéole MIAM',       ref: 'MIAM-IZ-001',  qte: 32000,  site: 'miam',       silver: null,            status: 'devis',      livraison: '2026-05-27', actionsDone: 1, actionsTotal: 4, com: 'Sophie Renaud' },
+  { cmd: 'EPS-2618', client: 'Le Gouessant',        article: 'Alvéole 30 œufs',    ref: 'ALV-30-BLC',   qte: 16800,  site: 'alencon',    silver: 'CDE-S-44222',   status: 'expedition', livraison: '2026-05-21', actionsDone: 5, actionsTotal: 5, com: 'Antoine Pelletier' },
+  { cmd: 'EPS-2619', client: 'Œufs Geslin',         article: 'Intercalaire 6×10',  ref: 'INT-6X10-BLC', qte: 12400,  site: 'polysemble', silver: 'CDE-S-44223',   status: 'production', livraison: '2026-05-23', actionsDone: 3, actionsTotal: 5, com: 'Léa Garnier' },
+  { cmd: 'EPS-2620', client: 'Galliance',           article: 'Palette 1200×1000',  ref: 'PAL-12-BRUN',  qte: 640,    site: 'cabka',      silver: 'CDE-S-44224',   status: 'silver',     livraison: '2026-05-28', actionsDone: 2, actionsTotal: 6, com: 'Sophie Renaud' },
+  { cmd: 'EPS-2621', client: 'Avilis',              article: 'Alvéole 20 œufs',    ref: 'ALV-20-BLC',   qte: 28800,  site: 'alencon',    silver: 'CDE-S-44225',   status: 'production', livraison: '2026-05-19', actionsDone: 4, actionsTotal: 6, com: 'Antoine Pelletier' },
+  { cmd: 'EPS-2622', client: 'Œufs Cossé',          article: 'Alvéole MIAM',       ref: 'MIAM-IZ-002',  qte: 22000,  site: 'miam',       silver: null,            status: 'devis',      livraison: '2026-06-02', actionsDone: 1, actionsTotal: 4, com: 'Léa Garnier' },
+  { cmd: 'EPS-2623', client: 'France Œufs',         article: 'Intercalaire 5×8',   ref: 'INT-5X8-VRT',  qte: 9600,   site: 'polysemble', silver: 'CDE-S-44227',   status: 'expedition', livraison: '2026-05-20', actionsDone: 5, actionsTotal: 5, com: 'Sophie Renaud' },
+  { cmd: 'EPS-2624', client: 'Maître Coq',          article: 'Palette 1200×800',   ref: 'PAL-12-NOIR',  qte: 320,    site: 'cabka',      silver: 'CDE-S-44228',   status: 'production', livraison: '2026-05-26', actionsDone: 3, actionsTotal: 6, com: 'Antoine Pelletier' },
+  { cmd: 'EPS-2625', client: 'Avibresse',           article: 'Alvéole 30 œufs',    ref: 'ALV-30-BRUN',  qte: 19200,  site: 'alencon',    silver: 'CDE-S-44229',   status: 'silver',     livraison: '2026-05-29', actionsDone: 2, actionsTotal: 5, com: 'Léa Garnier' },
+  { cmd: 'EPS-2626', client: 'Œufs Geslin',         article: 'Intercalaire 6×10',  ref: 'INT-6X10-VRT', qte: 14400,  site: 'polysemble', silver: 'CDE-S-44230',   status: 'livree',     livraison: '2026-05-18', actionsDone: 6, actionsTotal: 6, com: 'Sophie Renaud' },
+  { cmd: 'EPS-2627', client: 'Loué',                article: 'Alvéole 20 œufs',    ref: 'ALV-20-BRUN',  qte: 33600,  site: 'alencon',    silver: 'CDE-S-44231',   status: 'production', livraison: '2026-05-30', actionsDone: 4, actionsTotal: 6, com: 'Antoine Pelletier' },
+];
+
+/* ===========================================================
+   FORMATTERS — FR strict
+=========================================================== */
+const fmtInt = new Intl.NumberFormat('fr-FR');
+const fmtDateLong = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short', year: '2-digit' });
+const TODAY = new Date('2026-05-19');
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return fmtDateLong.format(d).replace('.', '.');
+}
+
+function isLate(iso, status) {
+  if (status === 'livree' || status === 'expedition') return false;
+  const d = new Date(iso);
+  return d < TODAY;
+}
+
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+}
+
+function statusOf(key) {
+  return STATUSES.find(s => s.key === key);
+}
+
+/* ===========================================================
+   RENDER TABLE
+=========================================================== */
+function renderTable() {
+  const tbody = document.getElementById('tbody-eps');
+  tbody.innerHTML = COMMANDES.map(c => {
+    const st = statusOf(c.status);
+    const site = SITES[c.site];
+    const late = isLate(c.livraison, c.status);
+    const pct = Math.round((c.actionsDone / c.actionsTotal) * 100);
+    return `
+      <tr>
+        <td class="cmd-no">${c.cmd}</td>
+        <td class="cell-strong">${c.client}</td>
+        <td>${c.article}</td>
+        <td class="cell-muted">${c.ref}</td>
+        <td class="num">${fmtInt.format(c.qte)}</td>
+        <td>
+          <span class="site ${site.cls}">
+            <span class="site__dot"></span>${site.label}
+          </span>
+        </td>
+        <td>
+          ${c.silver
+            ? `<span class="silver-no">${c.silver}</span>`
+            : `<span class="silver-no silver-no--missing">à saisir</span>`}
+        </td>
+        <td>
+          <span class="badge ${late ? 'badge--retard' : st.badge}">${late ? 'Retard' : st.label}</span>
+        </td>
+        <td class="${late ? 'delta-neg' : 'cell-muted'}">${formatDate(c.livraison)}</td>
+        <td>
+          <div class="actions-prog">
+            <div class="actions-prog__bar"><span style="width:${pct}%"></span></div>
+            <span class="actions-prog__txt">${c.actionsDone}/${c.actionsTotal}</span>
+          </div>
+        </td>
+        <td class="cell-muted">${c.com}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+/* ===========================================================
+   RENDER KANBAN
+=========================================================== */
+function renderKanban() {
+  const root = document.getElementById('kanban-root');
+  root.innerHTML = STATUSES.map(st => {
+    const items = COMMANDES.filter(c => c.status === st.key);
+    return `
+      <div class="kcol">
+        <div class="kcol__header">
+          <span class="kcol__title">${st.label}</span>
+          <span class="kcol__count">${items.length}</span>
+        </div>
+        <div class="kcol__body">
+          ${items.map(c => {
+            const late = isLate(c.livraison, c.status);
+            return `
+              <article class="kcard" tabindex="0">
+                <div class="kcard__top">
+                  <span class="kcard__cmd">${c.cmd}</span>
+                  <span class="kcard__qty">${fmtInt.format(c.qte)}</span>
+                </div>
+                <div class="kcard__client">${c.client}</div>
+                <div class="kcard__article">${c.article} · ${SITES[c.site].label}</div>
+                <div class="kcard__meta">
+                  <span class="kcard__date ${late ? 'is-late' : ''}">${formatDate(c.livraison)}</span>
+                  <span class="kcard__commercial">
+                    <span class="kcard__avatar">${initials(c.com)}</span>
+                  </span>
+                </div>
+              </article>
+            `;
+          }).join('') || '<div style="color:var(--ink-30); font-size:12px; padding:8px 4px;">Aucune</div>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ===========================================================
+   VIEW TOGGLE
+=========================================================== */
+document.querySelectorAll('.seg-control button[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.view;
+    document.querySelectorAll('.seg-control button').forEach(b => b.classList.toggle('is-active', b === btn));
+    document.querySelectorAll('.view').forEach(v => v.classList.toggle('is-active', v.dataset.view === target));
+  });
+});
+
+/* ===========================================================
+   FILTER PILLS (visuel uniquement sur le proto)
+=========================================================== */
+document.querySelectorAll('.filters .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.filters .pill').forEach(x => x.classList.remove('is-active'));
+    p.classList.add('is-active');
+  });
+});
+
+/* ===========================================================
+   INIT
+=========================================================== */
+renderTable();
+renderKanban();
+</script>
+
+</body>
+</html>
